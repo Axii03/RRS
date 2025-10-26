@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vulnerability Scanner</title>
+    <!-- Use absolute static paths so Flask serves them correctly -->
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<div class="wrapper">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+                <line x1="9" y1="9" x2="9.01" y2="9"/>
+                <line x1="15" y1="9" x2="15.01" y2="9"/>
+            </svg>
+            <span>VulnScanner</span>
+        </div>
+        <nav>
+            <a href="#" class="active"><i>Dashboard</i> Dashboard</a>
+        </nav>
+    </aside>
+
+    <!-- Main content -->
+    <main class="main">
+        <header class="header">
+            <h1>Vulnerability Scanner</h1>
+            <div class="scan-input">
+                <input type="text" id="domain" placeholder="Enter domain (e.g. example.com)">
+                <button id="scanBtn" onclick="scan()">Scan</button>
+            </div>
+        </header>
+
+        <!-- Progress / Results -->
+        <section id="results-container" class="results"></section>
+
+        <!-- Raw JSON (hidden by default) -->
+        <pre id="raw-json-output" class="raw-json"></pre>
+
+        <!-- Risk chart -->
+        <div class="chart-wrapper">
+            <canvas id="riskChart"></canvas>
+        </div>
+    </main>
+</div>
+
+<script src="/static/script.js"></script>
+</body>
+</html>

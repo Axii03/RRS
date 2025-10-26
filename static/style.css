@@ -1,0 +1,97 @@
+/* ==== Global reset & variables ==== */
+*,
+*::before,
+*::after { box-sizing: border-box; margin:0; padding:0; }
+:root {
+    --primary: #2563eb;
+    --success: #10b981;
+    --danger: #ef4444;
+    --warning: #f59e0b;
+    --dark: #0f172a;
+    --gray-100: #f1f5f9;
+    --gray-200: #e2e8f0;
+    --gray-600: #475569;
+    --radius: 8px;
+    --shadow: 0 4px 12px rgba(0,0,0,.08);
+}
+html { font-family: system-ui, -apple-system, sans-serif; background:#f8fafc; color:#1e293b; }
+body { min-height:100vh; }
+
+.wrapper { display:flex; height:100vh; }
+.sidebar { width:260px; background:var(--dark); color:#e2e8f0; padding:1.5rem 1rem; display:flex; flex-direction:column; }
+.logo { display:flex; align-items:center; gap:.75rem; font-weight:600; font-size:1.25rem; margin-bottom:2rem; }
+.logo svg { width:32px; height:32px; }
+nav a { display:flex; align-items:center; gap:.75rem; padding:.75rem 1rem; border-radius:var(--radius); color:#cbd5e1; text-decoration:none; transition:.2s; }
+nav a:hover, nav a.active { background:#1e293b; color:#fff; }
+nav a i { font-style:normal; opacity:.6; }
+
+.main { flex:1; padding:2rem; overflow-y:auto; background:#fff; }
+.header { display:flex; flex-direction:column; gap:1rem; margin-bottom:2rem; }
+.header h1 { font-size:1.75rem; font-weight:600; }
+.scan-input { display:flex; gap:.5rem; }
+.scan-input input { flex:1; padding:.75rem 1rem; border:1px solid var(--gray-200); border-radius:var(--radius); font-size:1rem; }
+.scan-input button { background:var(--primary); color:#fff; border:none; padding:0 1.5rem; border-radius:var(--radius); cursor:pointer; font-weight:500; transition:.2s; }
+.scan-input button:hover { background:#1d4ed8; }
+
+/* ==== Progress & Loading ==== */
+.loading { background:var(--gray-100); padding:1.5rem; border-radius:var(--radius); text-align:center; font-size:1rem; }
+.loading strong { font-size:1.5rem; color:var(--primary); }
+
+/* ==== Summary cards ==== */
+.summary { display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:1.5rem; margin-bottom:2rem; }
+.card { background:#fff; padding:1.5rem; border-radius:var(--radius); box-shadow:var(--shadow); text-align:center; }
+.card h3 { font-size:2rem; margin-bottom:.25rem; }
+.card p { color:var(--gray-600); font-size:.9rem; }
+
+/* Risk score circle */
+.risk-circle { position:relative; width:120px; height:120px; margin:0 auto; }
+.risk-circle svg { transform:rotate(-90deg); }
+.risk-circle circle { fill:none; stroke:#e2e8f0; stroke-width:12; }
+.risk-circle circle.progress { stroke:var(--primary); stroke-linecap:round; stroke-dasharray: 345; stroke-dashoffset:345; transition:stroke-dashoffset .6s ease; }
+.risk-circle .label { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:1.1rem; font-weight:600; }
+
+/* ==== Recent scans table ==== */
+.recent-table { width:100%; border-collapse:collapse; margin-bottom:2rem; }
+.recent-table th, .recent-table td { padding:.75rem 1rem; text-align:left; border-bottom:1px solid var(--gray-200); }
+.recent-table th { background:var(--gray-100); font-weight:600; color:var(--gray-600); }
+.recent-table .status { text-transform:capitalize; }
+.recent-table .severity { display:inline-block; padding:.25rem .5rem; border-radius:4px; font-size:.8rem; font-weight:500; }
+.recent-table .severity.high { background:#fee2e2; color:#b91c1c; }
+.recent-table .severity.medium { background:#fef3c7; color:#d97706; }
+.recent-table .severity.low { background:#d1fae5; color:#065f46; }
+
+/* ==== Top vulnerabilities chart ==== */
+.chart-wrapper { background:#fff; padding:1.5rem; border-radius:var(--radius); box-shadow:var(--shadow); margin-top:2rem; }
+#riskChart { max-height:400px; }
+
+/* ==== Result cards (after scan) ==== */
+.results-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(300px,1fr)); gap:1.5rem; }
+.result-card { background:#fff; padding:1.5rem; border-radius:var(--radius); box-shadow:var(--shadow); }
+.result-card h3 { margin-bottom:.5rem; word-break:break-all; }
+.result-card p { margin:.4rem 0; }
+.result-card button { margin-top:.75rem; background:var(--primary); color:#fff; border:none; padding:.5rem 1rem; border-radius:4px; cursor:pointer; }
+
+/* Risk level colors */
+.risk-critical { border-left:4px solid var(--danger); }
+.risk-high     { border-left:4px solid #fb7185; }
+.risk-medium   { border-left:4px solid var(--warning); }
+.risk-low      { border-left:4px solid var(--success); }
+
+/* ==== Download section ==== */
+#download-section { margin-top:2rem; padding:1.5rem; background:var(--gray-100); border-radius:var(--radius); text-align:center; }
+#download-section h3 { margin-bottom:1rem; }
+.download-btn { background:var(--primary); color:#fff; border:none; padding:.6rem 1.2rem; border-radius:4px; cursor:pointer; margin:0 .3rem; font-size:.9rem; }
+.download-btn:nth-child(2){background:#059669;}
+.download-btn:nth-child(3){background:#dc2626;}
+.download-btn:nth-child(4){background:#7c3aed;}
+
+/* ==== Raw JSON (hidden until scan) ==== */
+.raw-json { background:#1e1e1e; color:#d4d4d4; padding:1rem; border-radius:var(--radius); margin-top:1rem; max-height:300px; overflow:auto; display:none; }
+
+/* ==== Responsive ==== */
+@media (max-width:992px) {
+    .wrapper { flex-direction:column; }
+    .sidebar { width:100%; padding:1rem; flex-direction:row; overflow-x:auto; }
+    nav { display:flex; gap:.5rem; }
+    nav a { white-space:nowrap; }
+}
